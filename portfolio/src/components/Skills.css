@@ -1,0 +1,109 @@
+.skills {
+  background-color: #ffffffe6;
+}
+
+body.dark-mode .skills {
+  background-color: #232b2b;
+}
+
+.technologies-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 12px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.tech-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: rgba(81, 126, 224, 0.1);
+  border-radius: 25px;
+  border: 1px solid rgba(81, 126, 224, 0.2);
+  transition: all 0.3s ease;
+  min-width: 110px;
+}
+
+.tech-item:hover {
+  background: rgba(81, 126, 224, 0.15);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+body.dark-mode .tech-item {
+  background: rgba(194, 214, 246, 0.1);
+  border: 1px solid rgba(194, 214, 246, 0.2);
+}
+
+body.dark-mode .tech-item:hover {
+  background: rgba(194, 214, 246, 0.15);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.tech-logo {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.custom-icon {
+  font-size: 20px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Theme-aware icons - white in dark mode, black in light mode */
+.theme-aware-icon {
+  filter: brightness(0) invert(0);
+}
+
+body.dark-mode .theme-aware-icon {
+  filter: brightness(0) invert(1);
+}
+
+.tech-item:hover .tech-logo {
+  transform: scale(1.1);
+}
+
+.tech-name {
+  font-weight: 500;
+  color: #2d3748;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+body.dark-mode .tech-name {
+  color: #c2d6f6;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .technologies-grid {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 12px;
+  }
+
+  .tech-item {
+    padding: 8px 16px;
+    min-width: 100px;
+  }
+
+  .tech-logo {
+    width: 14px;
+    height: 14px;
+  }
+
+  .tech-name {
+    font-size: 0.8rem;
+  }
+} 
