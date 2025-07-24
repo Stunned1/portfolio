@@ -31,8 +31,6 @@ const Contact = () => {
       if (!response.ok) {
         throw new Error('Failed to submit form');
       }
-      const data = await response.text(); //remove before deploying
-      console.log('Form submitted:', data); //remove before deploying
     } catch (error) {
       console.error('Error submitting form:', error);
     }

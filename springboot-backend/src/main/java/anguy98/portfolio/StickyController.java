@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/sticky")
-@CrossOrigin(origins = "http://localhost:3000") //remove before deploying; replace with actual domain
+@CrossOrigin(origins = "${frontend.origin}") //set environment variable
 public class StickyController {
 
     private final NotificationService notificationService;
