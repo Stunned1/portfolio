@@ -1,0 +1,419 @@
+.steam-header {
+  background: #171d25;
+  color: #dcdedf;
+  font-size: 13px;
+  line-height: 1.4;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+
+/* Top Menu Bar */
+.top-menu-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2px 16px;
+  height: 40px;
+  background: #171d25;
+}
+
+.menu-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.steam-logo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.steam-icon {
+  color: #787e86;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.menu-items {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.menu-item {
+  color: #787e86;
+  cursor: pointer;
+  transition: color 0.2s;
+  font-size: 13px;
+  font-weight: normal;
+  letter-spacing: normal;
+}
+
+.menu-item:hover {
+  color: #dcdedf;
+}
+
+.nav-arrows {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.nav-arrow {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #787e86;
+  transition: color 0.2s;
+}
+
+.nav-arrow svg {
+  width: 16px;
+  height: 16px;
+}
+
+.nav-arrow:hover {
+  color: #dcdedf;
+}
+
+.menu-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.volume-btn {
+  width: 52px;
+  height: 24px;
+  background: #272d37;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 2px;
+}
+
+.volume-btn:hover {
+  background: #3b424e;
+}
+
+.volume-btn:hover svg path {
+  fill: #b4b8bc;
+}
+
+.volume-btn {
+  position: relative;
+}
+
+.volume-btn::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #c0c4c7;
+  color: #313337;
+  padding: 4px 8px;
+  border-radius: 3px;
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1000;
+  transition: opacity 0.2s ease-out;
+}
+
+.volume-btn:hover::after {
+  opacity: 1;
+  transition: opacity 0.3s ease-in;
+}
+
+.notification-btn {
+  width: 52px;
+  height: 24px;
+  background: #272d37;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 2px;
+}
+
+.notification-btn:hover {
+  background: #3b424e;
+}
+
+.notification-btn:hover svg path {
+  fill: #b4b8bc;
+}
+
+.notification-btn {
+  position: relative;
+}
+
+.notification-btn::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #c0c4c7;
+  color: #313337;
+  padding: 4px 8px;
+  border-radius: 3px;
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1000;
+  transition: opacity 0.2s ease-out;
+}
+
+.notification-btn:hover::after {
+  opacity: 1;
+  transition: opacity 0.3s ease-in;
+}
+
+/* TV Icon Tooltip */
+.tv-icon::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: -30px;
+  right: 0;
+  transform: translateX(0);
+  background: #c0c4c7;
+  color: #313337;
+  padding: 4px 8px;
+  border-radius: 3px;
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1000;
+  transition: opacity 0.2s ease-out;
+}
+
+.tv-icon:hover::after {
+  opacity: 1;
+  transition: opacity 0.3s ease-in;
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  padding: 0 7px 0 4px;
+  border-radius: 2px;
+  background: #272d37;
+  position: relative;
+}
+
+.user-profile:hover {
+  background: #213a50;
+}
+
+.user-profile {
+  position: relative;
+}
+
+.user-profile::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #c0c4c7;
+  color: #313337;
+  padding: 4px 8px;
+  border-radius: 3px;
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1000;
+  transition: opacity 0.2s ease-out;
+}
+
+.user-profile:hover::after {
+  opacity: 1;
+  transition: opacity 0.3s ease-in;
+}
+
+/* Hide tooltip when dropdown is open */
+.user-profile.dropdown-open::after {
+  opacity: 0 !important;
+}
+
+/* Header Profile Wrapper */
+.header-profile-wrapper {
+  position: relative;
+}
+
+/* Profile Dropdown */
+.profile-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 220px;
+  background: #3d4450;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  z-index: 1001;
+  margin-top: 2px;
+  overflow: hidden;
+}
+
+.dropdown-item {
+  padding: 8px 12px;
+  color: #dcdedb;
+  font-size: 13px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.dropdown-item:hover {
+  background: #dcdedf;
+  color: #424450;
+}
+
+.dropdown-separator {
+  height: 1px;
+  background: #4a515e;
+  margin: 4px 0;
+}
+
+.profile-username {
+  color: #4bb4ff;
+}
+
+.profile-avatar {
+  width: 24px;
+  height: 24px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 2px;
+  margin-right: 4px;
+  position: relative;
+}
+
+.profile-avatar::after {
+  content: '';
+  position: absolute;
+  right: -2px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: #4bacec;
+}
+
+.username {
+  color: #4bacec;
+  font-size: 13px;
+}
+
+.dropdown-arrow {
+  color: #4bacec;
+  width: 8px;
+  height: 8px;
+}
+
+/* Main Navigation Bar */
+.main-nav-bar {
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  height: 36px;
+  background: #171d25;
+  gap: 16px;
+}
+
+.nav-tabs {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.nav-tab {
+  color: #dcdedf;
+  font-size: 18px;
+  font-weight: 500;
+  text-transform: uppercase;
+  cursor: pointer;
+  padding: 6px 0;
+  transition: color 0.2s;
+  position: relative;
+}
+
+.nav-tab:hover {
+  color: white;
+}
+
+.nav-tab.active {
+  color: #1a9fff;
+}
+
+.nav-tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: 3px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: #1a9fff;
+  border-radius: 100px;
+}
+
+/* URL Bar */
+.url-bar {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 16px;
+  background: #171d25;
+  height: 32px;
+}
+
+.refresh-icon {
+  color: #787e86;
+  font-size: 12px;
+  cursor: pointer;
+  transition: color 0.2s;
+  margin-left: 6px;
+}
+
+.refresh-icon:hover {
+  color: #dcdedf;
+}
+
+.lock-icon {
+  color: #787e86;
+  margin-left: 12px;
+}
+
+.url-text {
+  color: #787e86;
+  font-size: 11px;
+  font-weight: normal;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .menu-items {
+    gap: 12px;
+  }
+  
+  .nav-tabs {
+    gap: 16px;
+  }
+  
+  .nav-tab {
+    font-size: 12px;
+  }
+}
