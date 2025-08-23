@@ -67,12 +67,29 @@
   transform: translateX(-50%);
   width: 976px;
   min-height: 100%; /* Span the full height of the page and accommodate content */
-  background: linear-gradient(135deg, rgba(29, 34, 72, 0.9) 0%, rgba(135, 56, 39, 0.9) 100%);
+  background: transparent;
   z-index: 5;
   pointer-events: auto; /* Enable pointer events for the center column */
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+/* Background overlay for center column */
+.center-column::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(29, 34, 72, 0.9) 0%, rgba(135, 56, 39, 0.9) 100%);
+  opacity: 1;
+  transition: opacity 0.8s ease-in-out;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Cinematic mode - hide the background overlay */
+.center-column.cinematic::before {
+  opacity: 0;
 }
 
 /* Profile Header Content */
@@ -297,7 +314,7 @@
   font-size: 14px;
   font-weight: 400;
   cursor: pointer;
-  transition: all 0.1s ease;
+  transition: all 0.1s ease-in-out;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -308,6 +325,15 @@
 .message_button:hover {
   background: #5d3a44;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Cinematic mode styles */
+.center-column.cinematic .message_button {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.center-column.cinematic .message_button:hover {
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .message_button:active {
@@ -328,7 +354,7 @@
   font-size: 14px;
   font-weight: 400;
   cursor: pointer;
-  transition: all 0.1s ease;
+  transition: all 0.1s ease-in-out;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -342,6 +368,15 @@
 .more_button:hover {
   background: #5d3a44;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Cinematic mode styles */
+.center-column.cinematic .more_button {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.center-column.cinematic .more_button:hover {
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .more_button:active {

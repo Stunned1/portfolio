@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 
-const SteamHeader = ({ cinematicMode, toggleCinematicMode }) => {
+const SteamHeader = ({ cinematicMode, toggleCinematicMode, currentPage, onPageChange }) => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [showProfileDropdown, setShowProfileDropdown] = useState(false);
   const profileDropdownRef = useRef(null);
@@ -35,7 +35,12 @@ const SteamHeader = ({ cinematicMode, toggleCinematicMode }) => {
   }, []);
 
   return (
-    <div className="steam-header">
+    <div 
+      className="steam-header"
+      style={{
+        paddingBottom: currentPage === 'library' ? '16px' : '0px'
+      }}
+    >
       {/* Top Menu Bar */}
       <div className="top-menu-bar">
         <div className="menu-left">
@@ -139,20 +144,34 @@ const SteamHeader = ({ cinematicMode, toggleCinematicMode }) => {
         </div>
         <div className="nav-tabs">
           <div className="nav-tab">STORE</div>
-          <div className="nav-tab">LIBRARY</div>
+          <div 
+            className={`nav-tab ${currentPage === 'library' ? 'active' : ''}`}
+            onClick={() => onPageChange('library')}
+            style={{ cursor: 'pointer' }}
+          >
+            LIBRARY
+          </div>
           <div className="nav-tab">COMMUNITY</div>
-          <div className="nav-tab active">AIDAN NGUYEN</div>
+          <div 
+            className={`nav-tab ${currentPage === 'profile' ? 'active' : ''}`}
+            onClick={() => onPageChange('profile')}
+            style={{ cursor: 'pointer' }}
+          >
+            AIDAN NGUYEN
+          </div>
         </div>
       </div>
 
       {/* URL Bar */}
-      <div className="url-bar">
-        <span className="refresh-icon">⟳</span>
-        <svg className="lock-icon" width="12" height="12" viewBox="0 0 24 24" fill="#646c77" aria-hidden="true">
-          <path d="M12 17a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm6-6h-1V7a5 5 0 0 0-10 0v4H6a2 2 0 0 0-2 2v7h16v-7a2 2 0 0 0-2-2zm-3 0H9V7a3 3 0 0 1 6 0v4z" />
-        </svg>
-        <span className="url-text">https://anguy98.com/</span>
-      </div>
+      {currentPage !== 'library' && (
+        <div className="url-bar">
+          <span className="refresh-icon">⟳</span>
+          <svg className="lock-icon" width="12" height="12" viewBox="0 0 24 24" fill="#646c77" aria-hidden="true">
+            <path d="M12 17a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm6-6h-1V7a5 5 0 0 0-10 0v4H6a2 2 0 0 0-2 2v7h16v-7a2 2 0 0 0-2-2zm-3 0H9V7a3 3 0 0 1 6 0v4z" />
+          </svg>
+          <span className="url-text">https://anguy98.com/</span>
+        </div>
+      )}
     </div>
   );
 };

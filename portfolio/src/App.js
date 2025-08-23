@@ -3,6 +3,7 @@ import './App.css';
 import SteamHeader from './components/SteamHeader';
 import './components/SteamHeader.css';
 import ChatPopup from './components/ChatPopup';
+import Library from './components/Library';
 
 // Helper function to subtract days from current date
 const subtractDays = (days) => {
@@ -21,6 +22,7 @@ function App() {
   const [currentDate, setCurrentDate] = useState('');
   const [hoveredFriend, setHoveredFriend] = useState(null);
   const [isChatOpen, setIsChatOpen] = useState(false);
+  const [currentPage, setCurrentPage] = useState('profile');
   const profileDropdownRef = useRef(null);
 
   // Get current date in EST format
@@ -61,6 +63,10 @@ function App() {
     }
   };
 
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+
   // Handle clicking outside the profile dropdown to close it
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -76,7 +82,7 @@ function App() {
   }, [showProfileDropdown, isFadingOut]);
 
   return (
-    <div className="App">
+      <div className="App">
       <style>
         {`
           .custom-checkbox.checked .checkmark {
@@ -141,13 +147,18 @@ function App() {
           }
         `}
       </style>
-      <SteamHeader 
-        cinematicMode={cinematicMode} 
-        toggleCinematicMode={toggleCinematicMode} 
-      />
-      
-      {/* Center Column - spans from top to bottom */}
-      <div className="center-column">
+        <SteamHeader 
+          cinematicMode={cinematicMode} 
+          toggleCinematicMode={toggleCinematicMode} 
+          currentPage={currentPage}
+          onPageChange={handlePageChange}
+        />
+        
+      {/* Page Content */}
+      {currentPage === 'profile' && (
+        <>
+          {/* Center Column - spans from top to bottom */}
+          <div className={`center-column ${cinematicMode ? 'cinematic' : ''}`}>
         {/* Profile Header Content */}
         <div className="profile_header_content">
           {/* Profile Picture - 164x164px square, all the way to the left */}
@@ -157,7 +168,7 @@ function App() {
               alt="Profile Picture"
               style={{ width: '100%', height: '100%', objectFit: 'cover' }}
             />
-          </div>
+      </div>
           
           {/* Profile Header Text Content - 436px wide, 36px from profile picture */}
           <div className="profile_header_text_content">
@@ -375,7 +386,8 @@ function App() {
                   style={{
                     color: '#ebebeb',
                     fontSize: '14px',
-                    fontFamily: 'MotivaSans, sans-serif'
+                    fontFamily: 'MotivaSans, sans-serif',
+                    cursor: 'pointer'
                   }}
                   onMouseEnter={(e) => {
                     e.target.style.textDecoration = 'underline';
@@ -383,6 +395,7 @@ function App() {
                   onMouseLeave={(e) => {
                     e.target.style.textDecoration = 'none';
                   }}
+                  onClick={() => handlePageChange('library')}
                 >
                   Projects
                 </div>
@@ -410,7 +423,8 @@ function App() {
                   style={{
                     color: '#ebebeb',
                     fontSize: '14px',
-                    fontFamily: 'MotivaSans, sans-serif'
+                    fontFamily: 'MotivaSans, sans-serif',
+                    cursor: 'pointer'
                   }}
                   onMouseEnter={(e) => {
                     e.target.style.textDecoration = 'underline';
@@ -418,6 +432,7 @@ function App() {
                   onMouseLeave={(e) => {
                     e.target.style.textDecoration = 'none';
                   }}
+                  onClick={() => handlePageChange('library')}
                 >
                   Experience
                 </div>
@@ -917,12 +932,27 @@ function App() {
               padding: '5px 10px 5px 10px',
               fontSize: '16px',
               color: '#dcdedf',
-              background: 'linear-gradient(to right, #2f2644, #3c283a)',
+              background: 'transparent',
               display: 'flex',
               alignItems: 'center',
-              borderRadius: '3px 3px 0px 0px'
+              borderRadius: '3px 3px 0px 0px',
+              zIndex: '1',
+              position: 'relative'
             }}
           >
+            {/* Background overlay for Skills Showcase header */}
+            <div 
+              style={{
+                position: 'absolute',
+                inset: 0,
+                background: 'linear-gradient(to right, #2f2644, #3c283a)',
+                opacity: cinematicMode ? 0 : 1,
+                transition: 'opacity 0.8s ease-in-out',
+                pointerEvents: 'none',
+                zIndex: -1,
+                borderRadius: '3px 3px 0px 0px'
+              }}
+            />
             Skills Showcase
           </div>
           
@@ -931,14 +961,15 @@ function App() {
             style={{
               width: '652px',
               height: 'auto',
-              padding: '20px 10px 11px 10px',
+              padding: '60px 10px 11px 10px',
               backgroundColor: '#0000004d',
               backdropFilter: 'blur(20px)',
-              borderRadius: '0px 0px 3px 3px',
+              borderRadius: '3px',
               display: 'flex',
               flexWrap: 'wrap',
               gap: '5px',
-              justifyContent: 'flex-start'
+              justifyContent: 'flex-start',
+              marginTop: '-40px'
             }}
           >
               {/* Skill buttons */}
@@ -1148,14 +1179,29 @@ function App() {
               padding: '5px 10px 5px 10px',
               fontSize: '16px',
               color: '#ffffff',
-              background: 'linear-gradient(to right, #2f2644, #3c283a)',
+              background: 'transparent',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
               borderRadius: '3px 3px 0px 0px',
-              marginTop: '10px'
+              marginTop: '10px',
+              zIndex: '1000',
+              position: 'relative'
             }}
           >
+            {/* Background overlay for Recent Activity header */}
+            <div 
+              style={{
+                position: 'absolute',
+                inset: 0,
+                background: 'linear-gradient(to right, #2f2644, #3c283a)',
+                opacity: cinematicMode ? 0 : 1,
+                transition: 'opacity 0.8s ease-in-out',
+                pointerEvents: 'none',
+                zIndex: -1,
+                borderRadius: '3px 3px 0px 0px'
+              }}
+            />
             {/* Recent Activity header */}
             <div style={{
               color: '#ffffff',
@@ -1179,8 +1225,10 @@ function App() {
             backgroundColor: 'rgba(0, 0, 0, 0.3)',
             backdropFilter: 'blur(20px)',
             width: '652px',
-            height: '496px',
-            padding: '28px 10px 11px 10px'
+            height: '536px',
+            padding: '68px 10px 11px 10px',
+            marginTop: '-40px',
+            borderRadius: '3px'
           }}>
             {/* Inner darker gray div */}
             <div style={{
@@ -1524,13 +1572,27 @@ function App() {
               width: '652px',
               height: '42px',
               padding: '6px 10px',
-              background: 'linear-gradient(to right, #2f2644, #3c283a)',
+              background: 'transparent',
               borderRadius: '5px 5px 0px 0px',
               marginTop: '84px',
               display: 'flex',
               alignItems: 'center',
-              justifyContent: 'space-between'
+              justifyContent: 'space-between',
+              position: 'relative'
             }}>
+            {/* Background overlay for Comments section header */}
+            <div 
+              style={{
+                position: 'absolute',
+                inset: 0,
+                background: 'linear-gradient(to right, #2f2644, #3c283a)',
+                opacity: cinematicMode ? 0 : 1,
+                transition: 'opacity 0.8s ease-in-out',
+                pointerEvents: 'none',
+                zIndex: -1,
+                borderRadius: '5px 5px 0px 0px'
+              }}
+            />
             <span style={{
               fontSize: '16px',
               color: '#FFFFFF'
@@ -1713,7 +1775,7 @@ function App() {
             </div>
           
         </div>
-      </div>
+      </div> {/* Close center-column */}
       
       {/* Top profile background section (PNG or MP4 based on cinematic mode) */}
       <section className="profile-hero">
@@ -1784,8 +1846,15 @@ function App() {
         </div>
       </section>
 
-      {/* Spacer to allow scrolling below the image */}
-      <div className="scroll-spacer page-body" />
+          {/* Spacer to allow scrolling below the image */}
+          <div className="scroll-spacer page-body" />
+        </>
+      )}
+      
+      {/* Library Page */}
+      {currentPage === 'library' && (
+        <Library />
+      )}
       
       {/* Chat Popup */}
       <ChatPopup isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />

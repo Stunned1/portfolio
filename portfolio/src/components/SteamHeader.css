@@ -363,11 +363,22 @@
   content: '';
   position: absolute;
   bottom: 3px;
-  left: 0;
-  right: 0;
+  left: 50%;
+  width: 0;
   height: 3px;
   background: #1a9fff;
   border-radius: 100px;
+  transform: translateX(-50%);
+  animation: expandLine 0.1s ease-out forwards;
+}
+
+@keyframes expandLine {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
 }
 
 /* URL Bar */
