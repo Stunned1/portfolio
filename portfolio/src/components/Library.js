@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import './Library.css';
 
 const Library = () => {
@@ -47,7 +47,7 @@ const Library = () => {
   //   technologies: ['tech1', 'tech2'], // Technologies for filtering
   //   url: 'https://project-url.com' // Live project URL
   // }
-  const projectsData = [
+  const projectsData = useMemo(() => [
     {
       id: 101,
       title: 'Portfolio Website',
@@ -80,7 +80,7 @@ const Library = () => {
       technologies: ['C#'],
       url: 'https://github.com/Stunned1/Neural-Network'
     }
-  ];
+  ], []);
 
   // To add new experience: add a new object to this array with the following structure:
   // {
@@ -91,7 +91,7 @@ const Library = () => {
   //   technologies: ['tech1', 'tech2'], // Technologies used
   //   url: 'https://company-website.com' // Company website or relevant URL
   // }
-  const experienceData = [
+  const experienceData = useMemo(() => [
     {
       id: 201,
       title: 'Undergraduate Researcher',
@@ -100,7 +100,7 @@ const Library = () => {
       technologies: [],
       url: 'https://code-world-no-blanket.github.io/'
     }
-  ];
+  ], []);
 
   // Get current date in EST format
   const getCurrentDateEST = () => {
@@ -120,8 +120,10 @@ const Library = () => {
 
   // Set default selected item to first project
   useEffect(() => {
-    setSelectedItem(projectsData[0]);
-  }, []);
+    if (projectsData && projectsData.length > 0) {
+      setSelectedItem(projectsData[0]);
+    }
+  }, [projectsData]);
 
   // Close filter menu when clicking outside
   useEffect(() => {
