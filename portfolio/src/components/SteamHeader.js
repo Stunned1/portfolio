@@ -45,7 +45,15 @@ const SteamHeader = ({ cinematicMode, toggleCinematicMode, currentPage, onPageCh
       <div className="top-menu-bar">
         <div className="menu-left">
           <div className="steam-logo">
-            <span className="steam-icon">S</span>
+            <img 
+              src={`${process.env.PUBLIC_URL}/steam-logo.png`}
+              alt="Steam Logo"
+              style={{ 
+                width: '16px', 
+                height: '16px',
+                filter: 'brightness(0) saturate(100%) invert(0.5)'
+              }}
+            />
             <span className="menu-item">Steam</span>
           </div>
           <div className="menu-items">
@@ -143,7 +151,13 @@ const SteamHeader = ({ cinematicMode, toggleCinematicMode, currentPage, onPageCh
           </div>
         </div>
         <div className="nav-tabs">
-          <div className="nav-tab">STORE</div>
+          <div 
+            className={`nav-tab ${currentPage === 'store' ? 'active' : ''}`}
+            onClick={() => onPageChange('store')}
+            style={{ cursor: 'pointer' }}
+          >
+            STORE
+          </div>
           <div 
             className={`nav-tab ${currentPage === 'library' ? 'active' : ''}`}
             onClick={() => onPageChange('library')}
@@ -151,7 +165,13 @@ const SteamHeader = ({ cinematicMode, toggleCinematicMode, currentPage, onPageCh
           >
             LIBRARY
           </div>
-          <div className="nav-tab">COMMUNITY</div>
+          <div 
+            className={`nav-tab ${currentPage === 'community' ? 'active' : ''}`}
+            onClick={() => onPageChange('community')}
+            style={{ cursor: 'pointer' }}
+          >
+            COMMUNITY
+          </div>
           <div 
             className={`nav-tab ${currentPage === 'profile' ? 'active' : ''}`}
             onClick={() => onPageChange('profile')}
@@ -169,7 +189,11 @@ const SteamHeader = ({ cinematicMode, toggleCinematicMode, currentPage, onPageCh
           <svg className="lock-icon" width="12" height="12" viewBox="0 0 24 24" fill="#646c77" aria-hidden="true">
             <path d="M12 17a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm6-6h-1V7a5 5 0 0 0-10 0v4H6a2 2 0 0 0-2 2v7h16v-7a2 2 0 0 0-2-2zm-3 0H9V7a3 3 0 0 1 6 0v4z" />
           </svg>
-          <span className="url-text">https://anguy98.com/</span>
+          <span className="url-text">
+            {currentPage === 'store' && 'https://store.anguy98.com/'}
+            {currentPage === 'community' && 'https://anguy98community.com/'}
+            {currentPage === 'profile' && 'https://anguy98.com/'}
+          </span>
         </div>
       )}
     </div>

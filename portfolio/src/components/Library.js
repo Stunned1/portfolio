@@ -16,12 +16,16 @@ const Library = () => {
   const [selectedFilters, setSelectedFilters] = useState([]);
   const [isSearchMode, setIsSearchMode] = useState(false);
   const [languageFilters, setLanguageFilters] = useState({
-    javascript: false,
-    python: false,
-    java: false,
-    react: false,
-    spring: false,
-    flask: false
+    'Javascript': false,
+    'Python': false,
+    'Java': false,
+    'React': false,
+    'Spring Boot': false,
+    'Flask': false,
+    'Typescript': false,
+    'Node': false,
+    'Docker': false,
+    'C#': false
   });
 
   // Collapsible sections state
@@ -33,52 +37,68 @@ const Library = () => {
   // Selected item state
   const [selectedItem, setSelectedItem] = useState(null);
 
-  // Sample data for projects and experience
+  // Enhanced data structure for projects and experience
+  // To add new projects: add a new object to this array with the following structure:
+  // {
+  //   id: [unique_number],           // Use next available ID (e.g., 107, 108, etc.)
+  //   title: 'Project Name',         // Display name
+  //   image: '/thumbnail.png',       // Thumbnail image for sidebar (small)
+  //   heroImage: '/hero-image.png',  // Hero image for main page (large)
+  //   technologies: ['tech1', 'tech2'], // Technologies for filtering
+  //   url: 'https://project-url.com' // Live project URL
+  // }
   const projectsData = [
     {
       id: 101,
       title: 'Portfolio Website',
       image: '/portfolio-preview.png',
-      technologies: ['react', 'javascript']
+      heroImage: '/portfolio-preview.png',
+      technologies: ['react', 'javascript', 'docker', 'java', 'spring'],
+      url: 'https://anguy98.com'
     },
     {
       id: 102,
       title: 'Tsukora',
       image: '/tsukora-preview.png',
-      technologies: ['react', 'javascript']
+      heroImage: '/tsukora-preview.png',
+      technologies: ['python', 'flask'],
+      url: 'https://github.com/Stunned1/Tsukora'
     },
     {
       id: 103,
-      title: 'Spring Boot Backend',
+      title: 'JWT Authentication Project',
       image: '/springboot.png',
-      technologies: ['java', 'spring']
+      heroImage: '/authentication.png',
+      technologies: ['java', 'Spring Boot'],
+      url: 'https://github.com/Stunned1/JWT-Authentication'
     },
     {
       id: 104,
-      title: 'Flask Web App',
-      image: '/flask.png',
-      technologies: ['python', 'flask']
-    },
-    {
-      id: 105,
-      title: 'AI Integration',
-      image: '/ollama.png',
-      technologies: ['python']
-    },
-    {
-      id: 106,
-      title: 'Containerized Apps',
-      image: '/docker-logo.png',
-      technologies: ['docker']
+      title: 'Neural Network',
+      image: '/neural-network-icon.png',
+      heroImage: '/neural-network-preview.png',
+      technologies: ['C#'],
+      url: 'https://github.com/Stunned1/Neural-Network'
     }
   ];
 
+  // To add new experience: add a new object to this array with the following structure:
+  // {
+  //   id: [unique_number],           // Use next available ID (e.g., 202, 203, etc.)
+  //   title: 'Job Title',            // Job title
+  //   image: '/company-logo.png',    // Thumbnail image for sidebar (small)
+  //   heroImage: '/hero-image.png',  // Hero image for main page (large)
+  //   technologies: ['tech1', 'tech2'], // Technologies used
+  //   url: 'https://company-website.com' // Company website or relevant URL
+  // }
   const experienceData = [
     {
       id: 201,
-      title: 'Software Engineer Intern',
-      image: '/vs-logo.png',
-      technologies: ['java', 'spring']
+      title: 'Undergraduate Researcher',
+      image: '/vt-logo.png',
+      heroImage: '/code-world-no-blanket.png',
+      technologies: [],
+      url: 'https://code-world-no-blanket.github.io/'
     }
   ];
 
@@ -96,6 +116,11 @@ const Library = () => {
   // Update date on component mount
   useEffect(() => {
     setCurrentDate(getCurrentDateEST());
+  }, []);
+
+  // Set default selected item to first project
+  useEffect(() => {
+    setSelectedItem(projectsData[0]);
   }, []);
 
   // Close filter menu when clicking outside
@@ -250,12 +275,16 @@ const Library = () => {
   const clearAllFilters = () => {
     setSelectedFilters([]);
     setLanguageFilters({
-      javascript: false,
-      python: false,
-      java: false,
-      react: false,
-      spring: false,
-      flask: false
+      'Javascript': false,
+      'Python': false,
+      'Java': false,
+      'React': false,
+      'Spring Boot': false,
+      'Flask': false,
+      'Typescript': false,
+      'Node': false,
+      'Docker': false,
+      'C#': false
     });
     setIsFilterOpen(false);
   };
@@ -271,7 +300,7 @@ const Library = () => {
   // Render main content based on selected item
   const renderMainContent = () => {
     if (selectedItem) {
-      const heroSrc = `${process.env.PUBLIC_URL}${selectedItem.image || '/profile_picture.png'}`;
+      const heroSrc = `${process.env.PUBLIC_URL}${selectedItem.heroImage || selectedItem.image || '/profile_picture.png'}`;
       const placeholderSrc = `${process.env.PUBLIC_URL}/profile_picture.png`;
       const imageSrc = selectedItem.image ? heroSrc : placeholderSrc;
 
@@ -289,7 +318,10 @@ const Library = () => {
           <div className="project-panel-wrapper">
             <div className="project-panel">
               <div className="project-panel-content">
-                <button className="project-play-button" onClick={() => window.open('https://example.com', '_blank')}>
+                <button 
+                  className="project-play-button" 
+                  onClick={() => window.open(selectedItem.url || 'https://example.com', '_blank')}
+                >
                   <svg className="play-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M8 5v14l11-7z" fill="currentColor"/>
                   </svg>
@@ -318,119 +350,21 @@ const Library = () => {
         </div>
         
         <div className="library-grid">
-          {/* Project 1 */}
-          <div className="library-item">
-            <div className="library-item-header">
-              <img 
-                src={`${process.env.PUBLIC_URL}/portfolio-preview.png`} 
-                alt="Portfolio Project"
-                className="library-item-icon"
-              />
-              <h3 className="library-item-title">Portfolio Website</h3>
+          {projectsData.map(project => (
+            <div key={project.id} className="library-item">
+              <div className="library-item-header">
+                <img 
+                  src={`${process.env.PUBLIC_URL}${project.image}`} 
+                  alt={project.title}
+                  className="library-item-icon"
+                />
+                <h3 className="library-item-title">{project.title}</h3>
+              </div>
+              <div className="library-item-stats">
+                <span className="library-item-date">last played on {currentDate}</span>
+              </div>
             </div>
-            <p className="library-item-description">
-              A Steam-themed portfolio website built with React and modern web technologies.
-            </p>
-            <div className="library-item-stats">
-              <span className="library-item-hours">48.2 hrs on record</span>
-              <span className="library-item-date">last played on {currentDate}</span>
-            </div>
-          </div>
-          
-          {/* Project 2 */}
-          <div className="library-item">
-            <div className="library-item-header">
-              <img 
-                src={`${process.env.PUBLIC_URL}/tsukora-preview.png`} 
-                alt="Tsukora Project"
-                className="library-item-icon"
-              />
-              <h3 className="library-item-title">Tsukora</h3>
-            </div>
-            <p className="library-item-description">
-              A full-stack web application with real-time features and modern UI design.
-            </p>
-            <div className="library-item-stats">
-              <span className="library-item-hours">32.7 hrs on record</span>
-              <span className="library-item-date">last played on {currentDate}</span>
-            </div>
-          </div>
-          
-          {/* Project 3 */}
-          <div className="library-item">
-            <div className="library-item-header">
-              <img 
-                src={`${process.env.PUBLIC_URL}/springboot.png`} 
-                alt="Spring Boot Project"
-                className="library-item-icon"
-              />
-              <h3 className="library-item-title">Spring Boot Backend</h3>
-            </div>
-            <p className="library-item-description">
-              RESTful API backend built with Spring Boot, featuring contact forms and data persistence.
-            </p>
-            <div className="library-item-stats">
-              <span className="library-item-hours">24.1 hrs on record</span>
-              <span className="library-item-date">last played on {currentDate}</span>
-            </div>
-          </div>
-          
-          {/* Project 4 */}
-          <div className="library-item">
-            <div className="library-item-header">
-              <img 
-                src={`${process.env.PUBLIC_URL}/flask.png`} 
-                alt="Flask Project"
-                className="library-item-icon"
-              />
-              <h3 className="library-item-title">Flask Web App</h3>
-            </div>
-            <p className="library-item-description">
-              Python web application using Flask framework with database integration.
-            </p>
-            <div className="library-item-stats">
-              <span className="library-item-hours">18.9 hrs on record</span>
-              <span className="library-item-date">last played on {currentDate}</span>
-            </div>
-          </div>
-          
-          {/* Project 5 */}
-          <div className="library-item">
-            <div className="library-item-header">
-              <img 
-                src={`${process.env.PUBLIC_URL}/ollama.png`} 
-                alt="AI Project"
-                className="library-item-icon"
-              />
-              <h3 className="library-item-title">AI Integration</h3>
-            </div>
-            <p className="library-item-description">
-              Machine learning project integrating Ollama for local AI model deployment.
-            </p>
-            <div className="library-item-stats">
-              <span className="library-item-hours">15.3 hrs on record</span>
-              <span className="library-item-date">last played on {currentDate}</span>
-            </div>
-          </div>
-          
-          {/* Project 6 */}
-          <div className="library-item">
-            <div className="library-item-header">
-              <img 
-                src={`${process.env.PUBLIC_URL}/docker-logo.png`} 
-                alt="Docker Project"
-                className="library-item-icon"
-              />
-              <h3 className="library-item-title">Containerized Apps</h3>
-            </div>
-            <p className="library-item-description">
-              Docker containerization projects for scalable application deployment.
-            </p>
-            <div className="library-item-stats">
-              <span className="library-item-hours">12.8 hrs on record</span>
-              <span className="library-item-date">last played on {currentDate}</span>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     );
@@ -479,7 +413,7 @@ const Library = () => {
               onClick={() => toggleOption('projects')}
             >
               <div className={`checkbox ${selectedOptions.projects ? 'checked' : ''}`}></div>
-              <span className="option-text">Projects <span className="option-count">(4)</span></span>
+              <span className="option-text">Projects <span className="option-count">({projectsData.length})</span></span>
             </div>
             
             <div 
@@ -487,7 +421,7 @@ const Library = () => {
               onClick={() => toggleOption('experience')}
             >
               <div className={`checkbox ${selectedOptions.experience ? 'checked' : ''}`}></div>
-              <span className="option-text">Experience <span className="option-count">(1)</span></span>
+              <span className="option-text">Experience <span className="option-count">({experienceData.length})</span></span>
             </div>
           </div>
         </div>

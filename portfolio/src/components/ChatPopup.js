@@ -130,7 +130,7 @@ const ChatPopup = ({ isOpen, onClose }) => {
     }));
   };
 
-  const handleFormSubmit = () => {
+  const handleFormSubmit = async () => {
     // Basic validation
     if (!formData.email || !formData.name || !formData.message) {
       setTooltip({ show: true, message: 'Please fill in all fields', type: 'error' });
@@ -152,27 +152,56 @@ const ChatPopup = ({ isOpen, onClose }) => {
       return;
     }
 
-    // Here you would typically send the form data to your backend
-    console.log('Form submitted:', formData);
-    
-    // Show success message
-    setTooltip({ show: true, message: 'Message sent successfully!', type: 'success' });
-    
-    // Reset form
-    setFormData({
-      email: '',
-      name: '',
-      message: ''
-    });
-    
-    // Close the expanded area after a short delay
-    setTimeout(() => {
-      setTooltip(prev => ({ ...prev, show: false }));
+    try {
+      // Show loading state
+      setTooltip({ show: true, message: 'Sending message...', type: 'info' });
+      
+      // Send form data to email API
+      const response = await fetch('/api/email/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        // Show success message
+        setTooltip({ show: true, message: 'Message sent successfully!', type: 'success' });
+        
+        // Reset form
+        setFormData({
+          email: '',
+          name: '',
+          message: ''
+        });
+        
+        // Close the expanded area after a short delay
+        setTimeout(() => {
+          setTooltip(prev => ({ ...prev, show: false }));
+          setTimeout(() => {
+            setIsInputExpanded(false);
+            setTooltip({ show: false, message: '', type: 'success' });
+          }, 300);
+        }, 1500);
+      } else {
+        throw new Error(result.message || 'Failed to send message');
+      }
+    } catch (error) {
+      console.error('Error sending message:', error);
+      setTooltip({ 
+        show: true, 
+        message: error.message || 'Failed to send message. Please try again.', 
+        type: 'error' 
+      });
+      
       setTimeout(() => {
-        setIsInputExpanded(false);
-        setTooltip({ show: false, message: '', type: 'success' });
-      }, 300);
-    }, 1500);
+        setTooltip(prev => ({ ...prev, show: false }));
+        setTimeout(() => setTooltip({ show: false, message: '', type: 'error' }), 300);
+      }, 3000);
+    }
   };
 
   const handleKeyPress = (e) => {
@@ -244,7 +273,7 @@ const ChatPopup = ({ isOpen, onClose }) => {
             />
             <button className="chat-popup-send-button" onClick={handleSendMessage}>
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                <path d="M2 21L23 12L1 3L2.5 11.5L16 12L2.5 13.5L1 21Z" fill="#5f5f5f" stroke="#5f5f5f" stroke-width="0.5" stroke-linejoin="round" stroke-linecap="round"/>
+                <path d="M2 21L23 12L1 3L2.5 11.5L16 12L2.5 13.5L1 21Z" fill="#5f5f5f" stroke="#5f5f5f" strokeWidth="0.5" strokeLinejoin="round" strokeLinecap="round"/>
               </svg>
             </button>
           </div>

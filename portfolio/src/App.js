@@ -4,6 +4,8 @@ import SteamHeader from './components/SteamHeader';
 import './components/SteamHeader.css';
 import ChatPopup from './components/ChatPopup';
 import Library from './components/Library';
+import Store from './components/Store';
+import Community from './components/Community';
 
 // Helper function to subtract days from current date
 const subtractDays = (days) => {
@@ -1851,9 +1853,19 @@ function App() {
         </>
       )}
       
+      {/* Store Page */}
+      {currentPage === 'store' && (
+        <Store />
+      )}
+      
       {/* Library Page */}
       {currentPage === 'library' && (
         <Library />
+      )}
+      
+      {/* Community Page */}
+      {currentPage === 'community' && (
+        <Community />
       )}
       
       {/* Chat Popup */}
