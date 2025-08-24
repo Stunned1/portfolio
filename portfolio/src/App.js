@@ -81,7 +81,7 @@ function App() {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [showProfileDropdown, isFadingOut]);
+  }, [showProfileDropdown, isFadingOut, closeDropdown]);
 
   return (
       <div className="App">
@@ -235,7 +235,7 @@ function App() {
               <div className="pdf-icon-tooltip" data-tooltip="Download Aidan's Resume!">
                 <img 
                   src={`${process.env.PUBLIC_URL}/pdf-icon.png`}
-                  alt="Favorite badge icon"
+                  alt="PDF icon"
                   style={{ width: '54px', height: '54px', objectFit: 'contain' }}
                 />
               </div>

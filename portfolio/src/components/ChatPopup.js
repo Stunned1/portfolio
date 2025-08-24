@@ -113,7 +113,7 @@ const ChatPopup = ({ isOpen, onClose }) => {
         document.removeEventListener('mouseup', handleMouseUp);
       };
     }
-  }, [isOpen, isDragging, dragOffset]);
+  }, [isOpen, isDragging, dragOffset, handleMouseMove, handleMouseUp]);
 
   const handleSendMessage = () => {
     if (message.trim()) {
@@ -201,13 +201,6 @@ const ChatPopup = ({ isOpen, onClose }) => {
         setTooltip(prev => ({ ...prev, show: false }));
         setTimeout(() => setTooltip({ show: false, message: '', type: 'error' }), 300);
       }, 3000);
-    }
-  };
-
-  const handleKeyPress = (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      handleSendMessage();
     }
   };
 

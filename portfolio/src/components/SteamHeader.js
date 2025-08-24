@@ -10,9 +10,7 @@ const SteamHeader = ({ cinematicMode, toggleCinematicMode, currentPage, onPageCh
     setShowDropdown(!showDropdown);
   };
 
-  const toggleProfileDropdown = () => {
-    setShowProfileDropdown(!showProfileDropdown);
-  };
+
 
   // Handle clicking outside the dropdowns to close them
   useEffect(() => {
