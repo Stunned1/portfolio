@@ -258,11 +258,7 @@ const Library = () => {
     }
   };
 
-  const addFilterTag = (language) => {
-    if (!selectedFilters.includes(language)) {
-      setSelectedFilters(prev => [...prev, language]);
-    }
-  };
+
 
   const removeFilterTag = (language) => {
     setSelectedFilters(prev => prev.filter(filter => filter !== language));

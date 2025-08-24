@@ -3,7 +3,6 @@ import React, { useState, useRef, useEffect } from 'react';
 const SteamHeader = ({ cinematicMode, toggleCinematicMode, currentPage, onPageChange }) => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [showProfileDropdown, setShowProfileDropdown] = useState(false);
-  const profileDropdownRef = useRef(null);
   const headerProfileDropdownRef = useRef(null);
 
   const toggleDropdown = () => {
@@ -15,11 +14,6 @@ const SteamHeader = ({ cinematicMode, toggleCinematicMode, currentPage, onPageCh
   // Handle clicking outside the dropdowns to close them
   useEffect(() => {
     const handleClickOutside = (event) => {
-      // Close profile name dropdown if clicking outside
-      if (profileDropdownRef.current && !profileDropdownRef.current.contains(event.target)) {
-        setShowProfileDropdown(false);
-      }
-      
       // Close header profile dropdown if clicking outside
       if (headerProfileDropdownRef.current && !headerProfileDropdownRef.current.contains(event.target)) {
         setShowDropdown(false);

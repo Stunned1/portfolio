@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import './App.css';
 import SteamHeader from './components/SteamHeader';
 import './components/SteamHeader.css';
@@ -47,7 +47,7 @@ function App() {
     setCinematicMode(!cinematicMode);
   };
 
-  const closeDropdown = () => {
+  const closeDropdown = useCallback(() => {
     if (showProfileDropdown && !isFadingOut) {
       setIsFadingOut(true);
       setTimeout(() => {
@@ -55,7 +55,7 @@ function App() {
         setIsFadingOut(false);
       }, 200);
     }
-  };
+  }, [showProfileDropdown, isFadingOut]);
 
   const toggleProfileDropdown = () => {
     if (showProfileDropdown) {
@@ -167,7 +167,7 @@ function App() {
           <div className="profile_picture">
             <img 
               src={`${process.env.PUBLIC_URL}/profile_picture.png`} 
-              alt="Profile Picture"
+              alt="Profile"
               style={{ width: '100%', height: '100%', objectFit: 'cover' }}
             />
       </div>
