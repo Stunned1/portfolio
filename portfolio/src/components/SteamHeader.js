@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect } from 'react';
 
 const SteamHeader = ({ cinematicMode, toggleCinematicMode, currentPage, onPageChange }) => {
   const [showDropdown, setShowDropdown] = useState(false);
-  const [showProfileDropdown, setShowProfileDropdown] = useState(false);
   const headerProfileDropdownRef = useRef(null);
 
   const toggleDropdown = () => {

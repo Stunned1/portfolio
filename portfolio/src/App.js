@@ -48,14 +48,17 @@ function App() {
   };
 
   const closeDropdown = useCallback(() => {
-    if (showProfileDropdown && !isFadingOut) {
-      setIsFadingOut(true);
-      setTimeout(() => {
-        setShowProfileDropdown(false);
-        setIsFadingOut(false);
-      }, 200);
-    }
-  }, [showProfileDropdown, isFadingOut]);
+    setShowProfileDropdown(prev => {
+      if (prev && !isFadingOut) {
+        setIsFadingOut(true);
+        setTimeout(() => {
+          setIsFadingOut(false);
+        }, 200);
+        return false;
+      }
+      return prev;
+    });
+  }, [isFadingOut]);
 
   const toggleProfileDropdown = () => {
     if (showProfileDropdown) {
@@ -81,7 +84,7 @@ function App() {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [showProfileDropdown, isFadingOut, closeDropdown]);
+  }, [closeDropdown]);
 
   return (
       <div className="App">
