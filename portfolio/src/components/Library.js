@@ -53,7 +53,7 @@ const Library = () => {
       title: 'Portfolio Website',
       image: '/portfolio-preview.png',
       heroImage: '/portfolio-preview.png',
-      technologies: ['react', 'javascript', 'docker', 'java', 'spring'],
+      technologies: ['React', 'Javascript', 'Docker', 'Java', 'Spring'],
       url: 'https://anguy98.com'
     },
     {
@@ -61,7 +61,7 @@ const Library = () => {
       title: 'Tsukora',
       image: '/tsukora-preview.png',
       heroImage: '/tsukora-preview.png',
-      technologies: ['python', 'flask'],
+      technologies: ['Python', 'Flask'],
       url: 'https://github.com/Stunned1/Tsukora'
     },
     {
@@ -69,7 +69,7 @@ const Library = () => {
       title: 'JWT Authentication Project',
       image: '/springboot.png',
       heroImage: '/authentication.png',
-      technologies: ['java', 'Spring Boot'],
+      technologies: ['Java', 'Spring Boot'],
       url: 'https://github.com/Stunned1/JWT-Authentication'
     },
     {
